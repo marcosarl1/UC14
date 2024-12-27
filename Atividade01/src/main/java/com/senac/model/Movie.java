@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.LocalDate;
 
@@ -12,15 +13,16 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Integer id;
     private String title;
     private String synopsis;
     private String genre;
     private LocalDate releaseYear;
 
-    public Movie(){}
+    public Movie() {
+    }
 
-    public Movie(long id, String title, String synopsis, String genre, LocalDate releaseYear) {
+    public Movie(Integer id, String title, String synopsis, String genre, LocalDate releaseYear) {
         this.id = id;
         this.title = title;
         this.synopsis = synopsis;
@@ -32,7 +34,7 @@ public class Movie {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
