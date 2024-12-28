@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Filmes</title>
+        <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Lista de Filmes</h1>
+            <a th:href="@{movies/add}" class="btn btn-primary mb-3">Adicionar novo Filme</a>
+            <div class="row">
+                <div th:each="movie : ${movies}" class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${movie.getTitle()}"></h5>
+                            <p class="card-text" th:text="${movie.getSynopsis()}"></p>
+                            <p class="card-text">
+                                <small class="text-muted"
+                                       th:text="${movie.genre} + ' - ' + ${movie.releaseYear}">
+                                </small>
+                            </p>
+                            <a th:href="@{/movies/details/{id}(id=${movie.id})}" class="btn btn-outline-secondary">Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:src="@{bootstrap/js/bootstrap.bundle.min.js}"></script>
+    </body>
+</html>
