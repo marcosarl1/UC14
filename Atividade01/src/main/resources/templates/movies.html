@@ -18,7 +18,11 @@
                             <p class="card-text" th:text="${movie.getSynopsis()}"></p>
                             <p class="card-text">
                                 <small class="text-muted"
-                                       th:text="${movie.genre} + ' - ' + ${movie.releaseYear}">
+                                       th:text="'Gênero: ' + ${movie.genre}">
+                                </small></p>
+                            <p class="card-text">
+                                <small class="text-muted"
+                                       th:text="'Ano de lançamento: '+ ${movie.releaseYear}">
                                 </small>
                             </p>
                             <a th:href="@{/movies/details/{id}(id=${movie.id})}" class="btn btn-outline-secondary">Detalhes</a>
