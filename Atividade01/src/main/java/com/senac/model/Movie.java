@@ -1,19 +1,17 @@
 package com.senac.model;
 
-import java.time.LocalDate;
-
 public class Movie {
 
     private Integer id;
     private String title;
     private String synopsis;
     private String genre;
-    private LocalDate releaseYear;
+    private Integer releaseYear;
 
     public Movie() {
     }
 
-    public Movie(Integer id, String title, String synopsis, String genre, LocalDate releaseYear) {
+    public Movie(Integer id, String title, String synopsis, String genre, Integer releaseYear) {
         this.id = id;
         this.title = title;
         this.synopsis = synopsis;
@@ -21,7 +19,7 @@ public class Movie {
         this.releaseYear = releaseYear;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -53,11 +51,11 @@ public class Movie {
         this.genre = genre;
     }
 
-    public LocalDate getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(LocalDate releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 }
