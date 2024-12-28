@@ -1,19 +1,13 @@
 package com.senac.model;
 
-import jakarta.persistence.*;
-
-@Entity
 public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @ManyToOne
     private Movie movie;
     private String review;
     private Double score;
 
-    public Review(){}
+    public Review() {
+    }
 
     public Review(Integer id, Movie movie, String review, Double score) {
         this.id = id;
