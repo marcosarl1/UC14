@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Detalhes do filme</title>
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
+    </head>
+    <body class="bg-light">
+        <nav th:insert="navbar.html :: nav"></nav>
+        <div class="container">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h1 th:text="${movie.title}" class="h2 mb-4"></h1>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="text-muted mb-3">Sinopse</h5>
+                            <p th:text="${movie.synopsis}" class="mb-4"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light p-3 rounded">
+                                <p class="mb-2">
+                                    <i class="bi bi-tag me2"></i>
+                                    <strong>Gênero:</strong>
+                                    <span th:text="${movie.genre}"></span>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="bi bi-calendar3 me-2">
+                                        <strong>Ano de lançamento:</strong>
+                                        <span th:text="${movie.releaseYear}"></span>
+                                    </i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4">Análises</h2>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                    <i class="bi bi-plus-lg me-2"></i>Adicionar Análise
+                </button>
+            </div>
+            <div class="row g-4">
+                <div th:each="review : ${reviews}" class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="starts-container">
+                                    <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                                        <i th:if="${review.score >= i}" class="bi bi-star-fill text-warning"></i>
+                                        <i th:if="${review.score < i && review.score >= i - 0.5}" class="bi bi-star-half text-warning"></i>
+                                        <i th:if="${review.score < i - 0.5}" class="bi bi-star text-warning"></i>
+                                    </th:block>
+                                </div>
+                                <span class="badge bg-primary" th:text="${#numbers.formatDecimal(review.score, 1, 1) + '/5'}"></span>
+                            </div>
+                            <p class="card-text" th:text="${review.review}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="addReviewModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-pencil-square me-2"></i>Adicionar Análise</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/review/add/{movieId}(movieId=${movie.id})}" th:object="${review}"
+                                  method="post">
+                                <div class="mb-3">
+                                    <label for="review" class="form-label">Sua Análise:</label>
+                                    <textarea class="form-control" id="review" th:field="*{review}" rows="4"
+                                              required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="score" class="form-label">Nota:</label>
+                                    <input type="number" step="0.5" class="form-control" id="score" th:field="*{score}"
+                                           th:min="0.5" th:max="5" required>
+                                    <div class="form-text">Avalie de 0.5 a 5 estrelas</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>
+                                        Salvar Análise
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    </body>
+</html>
