@@ -4,34 +4,41 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Filmes</title>
-        <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
     </head>
-    <body>
-        <div class="container mt-5">
-            <h1 class="text-center mb-4">Lista de Filmes</h1>
-            <a th:href="@{movies/add}" class="btn btn-primary mb-3">Adicionar novo Filme</a>
-            <div class="row">
-                <div th:each="movie : ${movies}" class="col-md-4 mb-4">
-                    <div class="card">
+    <body class="bg-light">
+        <nav class="nav navbar-expand-lg navbar-dark bg-primary mb-4">
+            <div class="container">
+                <a class="navbar-brand" href="/movies"><i class="bi bi-film me-2"></i>Casa Cultural</a>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-center mb-4">Catálogo de Filmes</h2>
+                <a th:href="@{movies/add}" class="btn btn-primary mb-3"><i class="bi bi-plus-lg me-2"></i>Novo Filme</a>
+            </div>
+            <div class="row g-4">
+                <div th:each="movie : ${movies}" class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${movie.getTitle()}"></h5>
-                            <p class="card-text" th:text="${movie.getSynopsis()}"></p>
-                            <p class="card-text">
-                                <small class="text-muted"
-                                       th:text="'Gênero: ' + ${movie.genre}">
-                                </small></p>
-                            <p class="card-text">
-                                <small class="text-muted"
-                                       th:text="'Ano de lançamento: '+ ${movie.releaseYear}">
-                                </small>
+                            <p class="card-text text-muted small mb-2">
+                                <i class="bi bi-tag me-1"></i>
+                                <span th:text="${movie.getGenre()}"></span>
+                                <span class="ms-3">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    <span th:text="${movie.getReleaseYear()}"></span>
+                                </span>
                             </p>
-                            <a th:href="@{/movies/details/{id}(id=${movie.id})}" class="btn btn-outline-secondary">Detalhes</a>
+                            <p class="card-text" th:text="${movie.getSynopsis()}"></p>
+                            <a th:href="@{/movies/details/{id}(id=${movie.id})}" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-info-circle me-2"></i>Ver Detalhes</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script th:src="@{bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
     </body>
 </html>
