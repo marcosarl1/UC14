@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('input[required], textarea[required]');
+    const inputs = document.querySelectorAll('input, textarea');
+    const form = document.getElementById('reviewForm');
 
     inputs.forEach(input => {
        input.addEventListener('input', () => {
@@ -8,4 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
            }
        });
     });
+
+    form.addEventListener('submit', ev => {
+       if (!form.checkValidity()) {
+           ev.preventDefault();
+           ev.stopPropagation();
+       }
+       form.classList.add('was-validated');
+    }, false);
 });

@@ -1,9 +1,20 @@
 package com.senac.model;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Review {
     private Integer id;
     private Movie movie;
+
+    @NotBlank(message = "Por favor, insira sua análise.")
     private String review;
+
+    @NotNull(message = "Por favor, forneça sua nota para o filme.")
+    @Min(value = 0, message = "A nota mínima permitida é 0.")
+    @Max(value = 5, message = "A nota máxima permitida é 5. ")
     private Double score;
 
     public Review() {

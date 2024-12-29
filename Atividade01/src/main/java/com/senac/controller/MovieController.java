@@ -27,13 +27,13 @@ public class MovieController {
     @GetMapping("/add")
     public String formNewMovie(Model model) {
         model.addAttribute("movie", new Movie());
-        return "new-movie";
+        return "add-movie";
     }
 
     @PostMapping("/add")
     public String addMovie(@Valid @ModelAttribute Movie movie, BindingResult result) {
         if (result.hasErrors()) {
-            return "new-movie";
+            return "add-movie";
         }
         movieService.addMovie(movie);
         return "redirect:/movies";
