@@ -3,33 +3,51 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Cadastrar Filme</title>
-        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css">
+        <title>Novo Filme</title>
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+              href="../static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
     </head>
-    <body>
+    <body class="bg-light">
         <nav th:insert="navbar.html :: nav"></nav>
-        <div class="container mt-5">
-            <h1 class="text-center mb-4">Cadastrar Filme</h1>
-            <form th:action="@{/movies/add}" th:object="${movie}" method="post" class="mb-3">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="title" th:field="*{title}" required>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="h3 mb-4">Cadastrar Filme</h1>
+                            <form th:action="@{/movies/add}" th:object="${movie}" method="post" class="mb-3">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Título do filme</label>
+                                    <input type="text" class="form-control" id="title" th:field="*{title}" required
+                                           placeholder="Digite o título do filme">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="synopsis" class="form-label">Sinopse</label>
+                                    <textarea type="text" class="form-control" id="synopsis" th:field="*{synopsis}"
+                                              rows="4" required placeholder="Digite a sinopse do filme"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="genre" class="form-label">Gênero</label>
+                                    <input type="text" class="form-control" id="genre" th:field="*{genre}" required
+                                           placeholder="Ex: Ação, Drama, Comédia">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="releaseYear" class="form-label">Ano de lançamento</label>
+                                    <input type="number" class="form-control" id="releaseYear" th:field="*{releaseYear}"
+                                           th:min="1800" th:max="${#calendars.year(#calendars.createNow())}" required
+                                           placeholder="Digite o ano de lançamento">
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-lg me-2"></i>Cadastrar Filme
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="synopsis" class="form-label">Sinopse:</label>
-                    <input type="text" class="form-control" id="synopsis" th:field="*{synopsis}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="genre" class="form-label">Gênero:</label>
-                    <input type="text" class="form-control" id="genre" th:field="*{genre}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="releaseYear" class="form-label">Ano de lançamento:</label>
-                    <input type="number" class="form-control" id="releaseYear" th:field="*{releaseYear}" th:min="1800" required>
-                </div>
-                <button type="submit" class="btn btn-success">Cadastrar</button>
-            </form>
-            <a th:href="@{/movies}" class="btn btn-secondary">Voltar</a>
+            </div>
         </div>
         <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
     </body>
