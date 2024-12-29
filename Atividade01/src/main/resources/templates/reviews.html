@@ -1,0 +1,71 @@
+    <!doctype html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Detalhes do filme</title>
+            <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+            <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
+        </head>
+        <body class="bg-light">
+            <nav th:insert="~{navbar.html :: nav}"></nav>
+            <div class="container">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h1 th:text="${movie.title}" class="h2 mb-4"></h1>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="text-muted mb-3">Sinopse</h5>
+                                <p th:text="${movie.synopsis}" class="mb-4"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light p-3 rounded">
+                                    <p class="mb-2">
+                                        <i class="bi bi-tag me2"></i>
+                                        <strong>Gênero:</strong>
+                                        <span th:text="${movie.genre}"></span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="bi bi-calendar3 me-2">
+                                            <strong>Ano de lançamento:</strong>
+                                            <span th:text="${movie.releaseYear}"></span>
+                                        </i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4">Análises</h2>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                        <i class="bi bi-plus-lg me-2"></i>Adicionar Análise
+                    </button>
+                </div>
+                <div class="row g-4">
+                    <div th:each="review : ${reviews}" class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="starts-container">
+                                        <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                                            <i th:if="${review.score >= i}" class="bi bi-star-fill text-warning"></i>
+                                            <i th:if="${review.score < i && review.score >= i - 0.5}"
+                                               class="bi bi-star-half text-warning"></i>
+                                            <i th:if="${review.score < i - 0.5}" class="bi bi-star text-warning"></i>
+                                        </th:block>
+                                    </div>
+                                    <span class="badge bg-primary"
+                                          th:text="${#numbers.formatDecimal(review.score, 1, 1) + '/5'}"></span>
+                                </div>
+                                <p class="card-text" th:text="${review.review}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:insert="~{add-review.html :: addReviewModal}"></div>
+            </div>
+            <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+            <script th:src="@{/js/validation.js}"></script>
+        </body>
+    </html>
