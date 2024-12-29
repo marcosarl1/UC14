@@ -8,11 +8,7 @@
         <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
     </head>
     <body class="bg-light">
-        <nav class="nav navbar-expand-lg navbar-dark bg-primary mb-4">
-            <div class="container">
-                <a class="navbar-brand" href="/movies"><i class="bi bi-film me-2"></i>Casa Cultural</a>
-            </div>
-        </nav>
+        <nav th:insert="navbar.html :: nav"></nav>
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="text-center mb-4">Catálogo de Filmes</h2>
