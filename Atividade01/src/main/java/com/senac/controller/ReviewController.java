@@ -20,8 +20,8 @@ public class ReviewController {
     }
 
     @PostMapping("/add/{movieId}")
-    public String addReview(@PathVariable Integer movieId, @ModelAttribute Review review, Model model) {
+    public String addReview(@PathVariable Integer movieId, @ModelAttribute Review review) {
         reviewService.addReview(movieId, review);
-        return "redirect:/movies/details";
+        return "redirect:/movies/details/" + movieId;
     }
 }
