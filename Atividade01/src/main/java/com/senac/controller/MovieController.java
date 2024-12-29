@@ -4,8 +4,10 @@ import com.senac.model.Movie;
 import com.senac.model.Review;
 import com.senac.service.MovieService;
 import com.senac.service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +37,10 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public String addMovie(@ModelAttribute Movie movie) {
+    public String addMovie(@Valid @ModelAttribute Movie movie, BindingResult result) {
+        if (result.hasErrors()) {
+            return "new-movie";
+        }
         movieService.addMovie(movie);
         return "redirect:/movies";
     }

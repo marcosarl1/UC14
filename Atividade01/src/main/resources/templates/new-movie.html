@@ -9,39 +9,74 @@
         <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.min.css}">
     </head>
     <body class="bg-light">
-        <nav th:insert="navbar.html :: nav"></nav>
+        <nav th:insert="~{navbar.html :: nav}"></nav>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h1 class="h3 mb-4">Cadastrar Filme</h1>
-                            <form th:action="@{/movies/add}" th:object="${movie}" method="post" class="mb-3">
+                            <form th:action="@{/movies/add}" th:object="${movie}" method="post"
+                                  class="mb-3 needs-validation" novalidate>
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Título do filme</label>
-                                    <input type="text" class="form-control" id="title" th:field="*{title}" required
-                                           placeholder="Digite o título do filme">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="synopsis" class="form-label">Sinopse</label>
-                                    <textarea type="text" class="form-control" id="synopsis" th:field="*{synopsis}"
-                                              rows="4" required placeholder="Digite a sinopse do filme"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="genre" class="form-label">Gênero</label>
-                                    <input type="text" class="form-control" id="genre" th:field="*{genre}" required
-                                           placeholder="Ex: Ação, Drama, Comédia">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="releaseYear" class="form-label">Ano de lançamento</label>
-                                    <input type="number" class="form-control" id="releaseYear" th:field="*{releaseYear}"
-                                           th:min="1800" th:max="${#calendars.year(#calendars.createNow())}" required
-                                           placeholder="Digite o ano de lançamento">
-                                </div>
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-check-lg me-2"></i>Cadastrar Filme
-                                    </button>
+                                    <div class="input-group has-validation">
+                                        <input type="text"
+                                               th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                               id="title"
+                                               th:field="*{title}"
+                                               placeholder="Digite o título do filme"
+                                               required>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}"
+                                             th:errors="*{title}">Erro no título
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="synopsis" class="form-label">Sinopse</label>
+                                        <div class="input-group has-validation">
+                                            <textarea type="text"
+                                                      th:class="${#fields.hasErrors('synopsis') ? 'form-control is-invalid' : 'form-control'}"
+                                                      id="synopsis"
+                                                      th:field="*{synopsis}"
+                                                      rows="4" required
+                                                      placeholder="Digite a sinopse do filme"></textarea>
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('synopsis')}"
+                                                 th:errors="*{synopsis}">Erro na sinopse
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="genre" class="form-label">Gênero</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text"
+                                                   th:class="${#fields.hasErrors('genre') ? 'form-control is-invalid' : 'form-control'}"
+                                                   id="genre" th:field="*{genre}" required
+                                                   placeholder="Ex: Ação, Drama, Comédia">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('genre')}"
+                                                 th:errors="*{genre}">Erro no gênero
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="releaseYear" class="form-label">Ano de lançamento</label>
+                                        <div class="input-group has-validation">
+                                            <input type="number"
+                                                   th:class="${#fields.hasErrors('releaseYear') ? 'form-control is-invalid' : 'form-control'}"
+                                                   id="releaseYear"
+                                                   th:field="*{releaseYear}"
+                                                   th:min="1800" max="2100"
+                                                   required
+                                                   placeholder="Digite o ano de lançamento">
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('releaseYear')}"
+                                                 th:errors="*{releaseYear}">Erro no ano de lançamento
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-lg me-2"></i>Cadastrar Filme
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -50,5 +85,6 @@
             </div>
         </div>
         <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/js/validation.js}"></script>
     </body>
 </html>
