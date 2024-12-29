@@ -1,23 +1,25 @@
 package com.senac.controller;
 
 import com.senac.model.Movie;
-import org.springframework.http.ResponseEntity;
+import com.senac.model.Review;
+import com.senac.service.MovieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
 
-    private List<Movie> movies = new ArrayList<>();
+    private final MovieService movieService;
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @GetMapping
     public String listAllMovies(Model model) {
-        model.addAttribute("movies", movies);
+        model.addAttribute("movies", movieService.getMovies());
         return "movies";
     }
 
@@ -29,22 +31,14 @@ public class MovieController {
 
     @PostMapping("/add")
     public String addMovie(@ModelAttribute Movie movie) {
-        Integer id = movies.size() + 1;
-        movie.setId(id);
-        movies.add(movie);
+        movieService.addMovie(movie);
         return "redirect:/movies";
     }
 
     @GetMapping("/details/{id}")
     public String movieDetails(@PathVariable Integer id, Model model) {
-        Movie movie = movies.stream()
-                .filter(m -> m.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-        if (movie == null) {
-            model.addAttribute("error", "Filme não encontrado");
-        }
-        model.addAttribute("movie", movie);
+        model.addAttribute("movie", movieService.getMovieById(id));
+        model.addAttribute("review", new Review());
         return "movie-details";
     }
 }
