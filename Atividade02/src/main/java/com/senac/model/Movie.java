@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank(message = "Por favor, informe um título válido.")
