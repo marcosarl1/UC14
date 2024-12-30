@@ -1,9 +1,6 @@
 package com.senac.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +25,7 @@ public class Movie {
     @NotNull(message = "Por favor, informe um ano de lançamento válido.")
     @Min(value = 1800, message = "O ano de lançamento deve ser após 1800")
     @Max(value = 2100, message = "O ano de lançamento deve ser antes de 2100")
+    @Column(name = "release_year")
     private Integer releaseYear;
 
     public Movie() {

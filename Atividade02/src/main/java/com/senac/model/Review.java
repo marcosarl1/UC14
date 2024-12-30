@@ -14,6 +14,7 @@ public class Review {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @NotBlank(message = "Por favor, insira sua análise.")
