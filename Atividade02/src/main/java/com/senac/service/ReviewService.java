@@ -1,13 +1,13 @@
 package com.senac.service;
 
-import com.senac.model.Movie;
+import com.senac.model.Review;
 
 import java.util.List;
 
 public interface ReviewService {
-    List<Movie> getReviews();
-    Movie getReviewById(Integer id);
-    Movie addReview(Movie movie);
-    Movie updateReview(Integer id, Movie movie);
+    List<Review> getReviews();
+    Review getReviewById(Integer id);
+    Review addReview(Review movie);
+    Review updateReview(Integer id, Review review);
     void deleteReview(Integer id);
 }
