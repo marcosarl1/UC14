@@ -17,6 +17,92 @@
             </div>
             <div class="row g-4" id="movie-cards">
             </div>
+            <div class="modal fade" id="updateMovieModal" tabindex="-1" aria-labelledby="updateMovieModal"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-pencil-square me-2"></i>Editar Filme</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="updateMovieForm" class="needs-validation" novalidate>
+                                <input type="hidden" id="updateMovieId">
+                                <div class="mb-3">
+                                    <label for="updateTitle" class="form-label">Título:</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" id="updateTitle"
+                                               placeholder="Digite o título do filme" required>
+                                        <div class="invalid-feedback">Por favor, informe um título válido.</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="updateSynopsis" class="form-label">Sinopse:</label>
+                                    <div class="input-group has-validation">
+                            <textarea type="text" class="form-control" id="updateSynopsis" rows="4"
+                                      placeholder="Digite a sinopse do filme" required></textarea>
+                                        <div class="invalid-feedback">Por favor, forneça uma sinopse para o filme.</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="updateGenre" class="form-label">Gênero:</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" id="updateGenre"
+                                               placeholder="Digite o gênero do filme" required>
+                                        <div class="invalid-feedback">Por favor, informe pelo menos um gênero para o
+                                            filme.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="updateReleaseYear" class="form-label">Ano de lançamento:</label>
+                                    <div class="input-group has-validation">
+                                        <input type="number" class="form-control" id="updateReleaseYear"
+                                               placeholder="Digite o ano de lançamento" min="1800" max="2100" required>
+                                        <div class="invalid-feedback">Por favor, informe um ano de lançamento válido
+                                            entre
+                                            1800 e 2100.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Salvar
+                                        Alterações
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteMovieModal" tabindex="-1" aria-labelledby="deleteMovieModal"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Confirmar
+                                Exclusão</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza que deseja excluir o filme "<span id="deleteMovieTitle"
+                                                                             class="fw-bold"></span>"?</p>
+                            <p class="text-danger mb-0"><small><i class="bi bi-exclamation-circle me-2"></i>Esta ação
+                                não poderá ser desfeita.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar
+                            </button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteButton"><i
+                                    class="bi bi-trash me-2"></i>Excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="assets/js/navbar.js"></script>
             <script src="assets/js/movies.js"></script>

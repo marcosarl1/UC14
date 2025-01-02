@@ -33,9 +33,13 @@ function renderMovies(movies) {
                                 <i class="bi bi-three-dots-vertical"></i></button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" id="btnUpdateModal" data-bs-toggle="modal" data-bs-target="#updateMovieModal"
-                                    onclick="openUpdateModal(${movie.id}, '${movie.title}', '${movie.synopsis}', '${movie.genre}', ${movie.releaseYear})"><i class="bi bi-pencil me-2"></i>Editar</a>
-                                    <a class="dropdown-item text-danger" onclick="deleteMovie(${movie.id})"><i class="bi bi-trash me-2"></i>Excluir</a>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateMovieModal"
+                                       onclick="openUpdateModal(${movie.id}, '${movie.title}', '${movie.synopsis}', '${movie.genre}', ${movie.releaseYear})"><i
+                                            class="bi bi-pencil me-2"></i>Editar</a>
+                                    <a class="dropdown-item text-danger" data-bs-toggle='modal'
+                                       data-bs-target="#deleteMovieModal"
+                                       onclick="openDeleteModal(${movie.id}, '${movie.title}')"><i
+                                            class="bi bi-trash me-2"></i>Excluir</a>
                                 </li>
                             </ul>
                         </div>
@@ -45,13 +49,12 @@ function renderMovies(movies) {
                         <span class="ms-3"><i class="bi bi-calendar3 me-1"></i>${movie.releaseYear}</span>
                     </p>
                     <p class="card-text">${movie.synopsis}</p>
-                    <a href="/reviews/${movie.id}" class="btn btn-outline-primary w-100">
+                    <a href="reviews.html?id=${movie.id}" class="btn btn-outline-primary w-100">
                         <i class="bi bi-info-circle me-2"></i>Ver Detalhes
                     </a>
                 </div>
             </div>
         </div>`
-
     });
 }
 
@@ -108,11 +111,9 @@ async function updateMovie(event) {
     };
     try {
         const res = await fetch(`${API_BASE_URL}/movies/update/${movieId}`, {
-            method: 'PUT',
-            headers: {
+            method: 'PUT', headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(movie),
+            }, body: JSON.stringify(movie),
         });
         if (!res.ok) {
             throw new Error(`Erro ${res.status}`);
@@ -133,24 +134,29 @@ function openUpdateModal(id, title, synopsis, genre, releaseYear) {
     document.getElementById('updateReleaseYear').value = releaseYear;
 }
 
-
-async function deleteMovie(movieId) {
-    if (!confirm('Tem certeza que deseja deleter esse filme?')) return;
-
+async function deleteMovie() {
+    if (!movieToDelete) return;
     try {
-        const res = await fetch(`${API_BASE_URL}/movies/delete/${movieId}`, {
+        const res = await fetch(`${API_BASE_URL}/movies/delete/${movieToDelete}`, {
             method: 'DELETE',
         });
-        if (res.ok) {
-            alert('Filme deletado com sucesso!');
-            fetchMovies();
-        } else {
+        if (!res.ok) {
             throw new Error('Falha ao deletar o filme');
         }
+        const modal = bootstrap.Modal.getInstance(document.getElementById('deleteMovieModal'));
+        modal.hide();
+        await fetchMovies();
     } catch (error) {
         console.error('Erro ao deletar o filme: ', error);
         alert('Erro ao deletar filme. Tente novamente.')
+    } finally {
+        movieToDelete = null;
     }
+}
+
+function openDeleteModal(movieId, movieTitle) {
+    movieToDelete = movieId;
+    document.getElementById('deleteMovieTitle').textContent = movieTitle;
 }
 
 
@@ -170,4 +176,8 @@ document.addEventListener('DOMContentLoaded', function () {
         updateForm.addEventListener('submit', updateMovie);
     }
 
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+    if (confirmDeleteButton) {
+        confirmDeleteButton.addEventListener('click', deleteMovie);
+    }
 });
