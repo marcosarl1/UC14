@@ -33,7 +33,8 @@ function renderMovies(movies) {
                                 <i class="bi bi-three-dots-vertical"></i></button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item"><i class="bi bi-pencil me-2"></i>Editar</a>
+                                    <a class="dropdown-item" id="btnUpdateModal" data-bs-toggle="modal" data-bs-target="#updateMovieModal"
+                                    onclick="openUpdateModal(${movie.id}, '${movie.title}', '${movie.synopsis}', '${movie.genre}', ${movie.releaseYear})"><i class="bi bi-pencil me-2"></i>Editar</a>
                                     <a class="dropdown-item text-danger" onclick="deleteMovie(${movie.id})"><i class="bi bi-trash me-2"></i>Excluir</a>
                                 </li>
                             </ul>
@@ -41,9 +42,7 @@ function renderMovies(movies) {
                     </div>
                     <p class="card-text text-muted small mb-2">
                         <i class="bi bi-tag me-1"></i>${movie.genre}
-                        <span class="ms-3">
-                                <i class="bi bi-calendar3 me-1"></i>${movie.releaseYear}
-                            </span>
+                        <span class="ms-3"><i class="bi bi-calendar3 me-1"></i>${movie.releaseYear}</span>
                     </p>
                     <p class="card-text">${movie.synopsis}</p>
                     <a href="/reviews/${movie.id}" class="btn btn-outline-primary w-100">
@@ -51,7 +50,8 @@ function renderMovies(movies) {
                     </a>
                 </div>
             </div>
-        </div>`;
+        </div>`
+
     });
 }
 
@@ -72,6 +72,8 @@ async function handleMovieForm(event) {
         releaseYear: parseInt(document.getElementById('releaseYear').value)
     };
 
+    console.log(movie)
+
     try {
         const res = await fetch(`${API_BASE_URL}/movies/add`, {
             method: 'POST', headers: {
@@ -87,9 +89,50 @@ async function handleMovieForm(event) {
     }
 }
 
-async function updateMovie(movieId) {
+async function updateMovie(event) {
+    event.preventDefault();
 
+    const form = event.target;
+    if (!form.checkValidity()) {
+        event.stopPropagation();
+        form.classList.add('was-validated');
+        return
+    }
+
+    const movieId = document.getElementById('updateMovieId').value;
+    const movie = {
+        title: document.getElementById('updateTitle').value,
+        synopsis: document.getElementById('updateSynopsis').value,
+        genre: document.getElementById('updateGenre').value,
+        releaseYear: parseInt(document.getElementById('updateReleaseYear').value)
+    };
+    try {
+        const res = await fetch(`${API_BASE_URL}/movies/update/${movieId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movie),
+        });
+        if (!res.ok) {
+            throw new Error(`Erro ${res.status}`);
+        }
+        const modal = bootstrap.Modal.getInstance(document.getElementById('updateMovieModal'));
+        modal.hide();
+        await fetchMovies();
+    } catch (error) {
+        console.error('Erro ao atualizar filme: ', error);
+    }
 }
+
+function openUpdateModal(id, title, synopsis, genre, releaseYear) {
+    document.getElementById('updateMovieId').value = id;
+    document.getElementById('updateTitle').value = title;
+    document.getElementById('updateSynopsis').value = synopsis;
+    document.getElementById('updateGenre').value = genre;
+    document.getElementById('updateReleaseYear').value = releaseYear;
+}
+
 
 async function deleteMovie(movieId) {
     if (!confirm('Tem certeza que deseja deleter esse filme?')) return;
@@ -115,10 +158,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const movieCards = document.getElementById('movie-cards')
     if (movieCards) {
         fetchMovies();
-
-        const form = document.getElementById('movieForm');
-        if (form) {
-            form.addEventListener('submit', handleMovieForm);
-        }
     }
+
+    const formAdd = document.getElementById('movieForm');
+    if (formAdd) {
+        formAdd.addEventListener('submit', handleMovieForm);
+    }
+
+    const updateForm = document.getElementById('updateMovieForm');
+    if (updateForm) {
+        updateForm.addEventListener('submit', updateMovie);
+    }
+
 });
