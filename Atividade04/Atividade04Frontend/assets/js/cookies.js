@@ -1,8 +1,8 @@
 function setCookies(cookieName, cookieValue, expirationDays) {
-    let expires = "";
-    if (days) {
+    let expiration = "";
+    if (expirationDays) {
         const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // 24hrs 60min 60sec 1000millisecond
+        date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000)); // 24hrs 60min 60sec 1000millisecond
         expiration = "; expires=" + date.toUTCString();
     }
     document.cookie = `${encodeURIComponent(cookieName)}=${encodeURIComponent(cookieValue)}${expiration}; path=/`;
