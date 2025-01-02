@@ -1,4 +1,5 @@
 const API_BASE_URL = 'http://localhost:8080';
+let movieToDelete = null;
 
 async function fetchMovies() {
     try {
@@ -165,8 +166,7 @@ function openDeleteModal(movieId, movieTitle) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const movieCards = document.getElementById('movie-cards')
-    if (movieCards) {
+    if (document.getElementById('movie-cards')) {
         fetchMovies();
     }
 
