@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 public class Movie {
 
@@ -27,6 +29,9 @@ public class Movie {
     @Max(value = 2100, message = "O ano de lançamento deve ser antes de 2100")
     @Column(name = "release_year")
     private Integer releaseYear;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Review> reviews;
 
     public Movie() {
     }
