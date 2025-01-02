@@ -9,16 +9,4 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </nav>
    `;
-
-   const themeToggle = document.getElementById('toggleTheme');
-   const body = document.body;
-
-   const currentTheme = getCookies('theme') || 'light';
-   if (currentTheme === 'dark') {
-      enableDarkMode();
-   }
-
-   themeToggle.addEventListener('click', () => {
-      (body.classList.contains('dark-mode')) ? disableDarkMode() : enableDarkMode();
-   });
 });
