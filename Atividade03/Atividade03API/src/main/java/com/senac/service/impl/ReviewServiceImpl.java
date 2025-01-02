@@ -22,8 +22,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviews() {
-        return reviewRepository.findAll();
+    public List<Review> getMovieReviews(Integer movieId) {
+        return reviewRepository.findByMovieId(movieId);
     }
 
     @Override
@@ -50,8 +50,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void deleteReview(Integer id) {
+    public void deleteReview(Integer movieId, Integer id) {
         validateId(id);
+        validateMovieExists(movieId);
         if (!reviewRepository.existsById(id)) {
             throw new ReviewNotFoundException(reviewNotFoundMsg + id);
         }

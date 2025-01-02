@@ -5,9 +5,9 @@ import com.senac.model.Review;
 import java.util.List;
 
 public interface ReviewService {
-    List<Review> getReviews();
+    List<Review> getMovieReviews(Integer movieId);
     Review getReviewById(Integer id);
     Review addReview(Review review);
     Review updateReview(Integer id, Review review);
-    void deleteReview(Integer id);
+    void deleteReview(Integer movieId, Integer id);
 }
