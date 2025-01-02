@@ -151,7 +151,7 @@ function renderReviews(reviews) {
                 <div class="d-flex align-items-center">
                     <span class="badge bg-primary">${review.score.toFixed(1)}/5</span>
                     <div class="dropdown">
-                        <button class="btn btn-sm btn-link text-dark" type="button" data-bs-toggle="dropdown"
+                        <button class="btn btn-sm btn-link text-body" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <i class="bi bi-three-dots-vertical"></i></button>
                         <ul class="dropdown-menu dropdown-menu-end">
