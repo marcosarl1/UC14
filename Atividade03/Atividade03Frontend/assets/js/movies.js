@@ -21,40 +21,44 @@ function renderMovies(movies) {
     existingCards.forEach(card => card.remove());
 
     movies.forEach(movie => {
-        movieCards.innerHTML += `
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="card-title">${movie.title}</h5>
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-link text-dark" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateMovieModal"
-                                       onclick="openUpdateModal(${movie.id}, '${movie.title}', '${movie.synopsis}', '${movie.genre}', ${movie.releaseYear})"><i
-                                            class="bi bi-pencil me-2"></i>Editar</a>
-                                    <a class="dropdown-item text-danger" data-bs-toggle='modal'
-                                       data-bs-target="#deleteMovieModal"
-                                       onclick="openDeleteModal(${movie.id}, '${movie.title}')"><i
-                                            class="bi bi-trash me-2"></i>Excluir</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p class="card-text text-muted small mb-2">
-                        <i class="bi bi-tag me-1"></i>${movie.genre}
-                        <span class="ms-3"><i class="bi bi-calendar3 me-1"></i>${movie.releaseYear}</span>
-                    </p>
-                    <p class="card-text">${movie.synopsis}</p>
-                    <a href="reviews.html?id=${movie.id}" class="btn btn-outline-primary w-100">
-                        <i class="bi bi-info-circle me-2"></i>Ver Detalhes
-                    </a>
+        movieCards.innerHTML += `<div class="col-md-6 col-lg-4">
+    <div class="card h-100 shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title">${movie.title}</h5>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-link text-dark" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="bi bi-three-dots-vertical"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateMovieModal"
+                               onclick="openUpdateModal(${movie.id}, '${movie.title}', '${movie.synopsis}', '${movie.genre}', ${movie.releaseYear})"><i
+                                    class="bi bi-pencil me-2"></i>Editar</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" data-bs-toggle='modal'
+                               data-bs-target="#deleteMovieModal"
+                               onclick="openDeleteModal(${movie.id}, '${movie.title}')"><i
+                                    class="bi bi-trash me-2"></i>Excluir</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>`
+            <p class="card-text text-muted small mb-2">
+                <i class="bi bi-tag me-1"></i>${movie.genre}
+                <span class="ms-3"><i class="bi bi-calendar3 me-1"></i>${movie.releaseYear}</span>
+            </p>
+            <p class="card-text">${movie.synopsis}</p>
+            <a href="reviews.html?id=${movie.id}" class="btn btn-outline-primary w-100">
+                <i class="bi bi-info-circle me-2"></i>Ver Detalhes
+            </a>
+        </div>
+    </div>
+</div>`
     });
 }
 
