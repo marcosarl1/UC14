@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Novo Filme</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap-icons/font/bootstrap-icons.min.css">
+    </head>
+    <body class="bg-light">
+        <nav id="navbar"></nav>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="h3 mb-4">Cadastrar Filme</h1>
+                            <form id="movieForm" method="post"
+                                  class="mb-3 needs-validation" novalidate>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Título do filme</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control"
+                                               id="title"
+                                               placeholder="Digite o título do filme"
+                                               required>
+                                        <div class="invalid-feedback">Por favor, informe um título válido.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="synopsis" class="form-label">Sinopse</label>
+                                        <div class="input-group has-validation">
+                                            <textarea type="text" class="form-control"
+                                                      id="synopsis"
+                                                      rows="4" required
+                                                      placeholder="Digite a sinopse do filme"></textarea>
+                                            <div class="invalid-feedback">Por favor, forneça uma sinopse para o filme.</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="genre" class="form-label">Gênero</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control"
+                                                   id="genre" required
+                                                   placeholder="Ex: Ação, Drama, Comédia">
+                                            <div class="invalid-feedback">Por favor, informe pelo menos um gênero para o filme.</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="releaseYear" class="form-label">Ano de lançamento</label>
+                                        <div class="input-group has-validation">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="releaseYear"
+                                                   min="1800" max="2100"
+                                                   required
+                                                   placeholder="Digite o ano de lançamento">
+                                            <div class="invalid-feedback">Por favor, informe um ano de lançamento válido entre 1800 e 2100.</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-lg me-2"></i>Cadastrar Filme
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/navbar.js"></script>
+        <script src="assets/js/movies.js"></script>
+    </body>
+</html>

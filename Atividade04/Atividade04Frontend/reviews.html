@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Detalhes do filme</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap-icons/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    <body class="bg-light">
+        <nav id="navbar"></nav>
+        <div class="container">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h1 id="movieTitle" class="h2 mb-4"></h1>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="text-muted mb-3">Sinopse</h5>
+                            <p id="movieSynopsis" class="mb-4"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light p-3 rounded">
+                                <p class="mb-2">
+                                    <i class="bi bi-tag me2"></i>
+                                    <strong>Gênero:</strong>
+                                    <span id="movieGenre"></span>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="bi bi-calendar3 me-2">
+                                        <strong>Ano de lançamento:</strong>
+                                        <span id="movieYear"></span>
+                                    </i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4">Análises</h2>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                    <i class="bi bi-plus-lg me-2"></i>Adicionar Análise
+                </button>
+            </div>
+            <div class="row g-4" id="reviewsContainer">
+            </div>
+        </div>
+        <div class="modal fade" id="addReviewModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-pencil-square me-2"></i>Adicionar Análise</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="needs-validation" id="reviewForm" method="post" novalidate>
+                            <div class="mb-3">
+                                <label for="review" class="form-label">Sua Análise:</label>
+                                <div class="input-group has-validation">
+                                            <textarea
+                                                    class="form-control"
+                                                    id="review" rows="4"
+                                                    placeholder="Digite sua análise sobre o filme"
+                                                    required></textarea>
+                                    <div class="invalid-feedback">Por favor, insira sua análise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="score" class="form-label">Nota:</label>
+                                <div class="input-group has-validation">
+                                    <input type="number" class="form-control" id="score"
+                                           min="0" max="5" step="0.5" required>
+                                    <div class="invalid-feedback">Por favor, insira uma nota válida.</div>
+                                </div>
+                                <div class="form-text">
+                                    <small><i class="bi bi-info-circle me-2"></i>Você pode avaliar de 0 a 5
+                                        estrelas, com notas de meio em meio (ex: 2,5, 3,0).</small>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>
+                                    Salvar Análise
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateReviewModal" tabindex="-1" aria-labelledby="updateReviewModal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-pencil-square me-2"></i>Editar Análise</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateReviewForm" class="needs-validation" novalidate>
+                            <input type="hidden" id="updateReviewId">
+                            <div class="mb-3">
+                                <label for="updateReview" class="form-label">Sua Análise:</label>
+                                <div class="input-group has-validation">
+                                            <textarea
+                                                    class="form-control"
+                                                    id="updateReview" rows="4"
+                                                    placeholder="Digite sua análise sobre o filme"
+                                                    required></textarea>
+                                    <div class="invalid-feedback">Por favor, insira sua análise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateScore" class="form-label">Nota:</label>
+                                <div class="input-group has-validation">
+                                    <input type="number" class="form-control" id="updateScore"
+                                           min="0" max="5" step="0.5" required>
+                                    <div class="invalid-feedback">Por favor, insira uma nota válida.</div>
+                                </div>
+                                <div class="form-text">
+                                    <small><i class="bi bi-info-circle me-2"></i>Você pode avaliar de 0 a 5
+                                        estrelas, com notas de meio em meio (ex: 2,5, 3,0).</small>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Salvar
+                                    Alterações
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModal"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Confirmar
+                            Exclusão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja excluir esta análise?</p>
+                        <p class="text-danger mb-0"><small><i class="bi bi-exclamation-circle me-2"></i>Esta ação
+                            não poderá ser desfeita.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar
+                        </button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteButton"><i
+                                class="bi bi-trash me-2"></i>Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/navbar.js"></script>
+        <script src="assets/js/reviews.js"></script>
+    </body>
+</html>
